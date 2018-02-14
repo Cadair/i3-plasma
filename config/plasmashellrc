@@ -1,0 +1,21 @@
+[PlasmaRunnerManager]
+LaunchCounts=1 services_mate-terminal.desktop,1 desktopsessions_1,1 services_kcmsmserver.desktop
+pluginWhiteList=services,places,desktopsessions,PowerDevil,shell,bookmarks,recentdocuments,locations,baloosearch
+
+[PlasmaViews][Panel 2]
+panelVisibility=0
+
+[PlasmaViews][Panel 2][Horizontal3840]
+thickness=56
+
+[PlasmaViews][Panel 26][Horizontal3840]
+thickness=76
+
+[PlasmaViews][Panel 26][Vertical2160]
+thickness=106
+
+[ScreenConnectors]
+0=eDP-1-1
+
+[Updates]
+performed=/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/obsolete_kickoffrc.js

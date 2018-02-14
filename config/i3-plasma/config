@@ -1,0 +1,226 @@
+# i3 config file (v4)
+#
+### Startup
+# Configure X
+exec --no-startup-id xcompmgr
+#Set wallpaper
+exec --no-startup-id feh --randomize --bg-fill /home/stuart/SyncBox/Wallpapers/Desktop/*
+
+### Font
+font pango: Noto Sans
+# HIDPI append this to end of previous line
+# 24px
+
+### Gaps
+# Border
+# Set this if you don't want borders anywhere
+# for_window [class="^.*"] border pixel 0
+new_float pixel 0
+new_window pixel 1
+gaps inner 5
+gaps outer 0
+smart_borders on
+
+### Variables
+# Super key. Use Mod1 for Alt, Mod4 for super
+set $mod Mod4
+# Your preferred terminal emulator
+set $term "gnome-terminal -- xonsh"
+# Your preferred application launcher
+set $menu dmenu_run
+
+# Layout Templates:
+exec --no-startup-id "i3-msg 'workspace 1; append_layout /home/stuart/.config/i3/workspace-1.json'"
+# Chat workspace
+exec --no-startup-id "i3-msg 'workspace 10; append_layout /home/stuart/.config/i3-plasma/workspace-10.json'"
+assign [class="Pidgin"] 10
+assign [class="Riot"] 10
+assign [class="HipChat"] 10
+
+
+# Emacs capture
+for_window [instance="emacs-capture"] floating enable
+bindsym $mod+Shift+t exec --no-startup-id $HOME/.config/bin/emacs-capture --eval '(org-capture nil "t")'
+bindsym Mod1+Shift+t exec --no-startup-id $HOME/.config/bin/emacs-capture --eval '(org-capture nil "w")'
+
+# Scratchpad for Emacs ToDo
+exec_always --no-startup-id $HOME/.config/bin/emacs-todo
+for_window [instance="emacs-todo"] floating enable
+for_window [instance="emacs-todo"] move scratchpad
+for_window [instance="emacs-todo"] scratchpad show
+for_window [instance="emacs-todo"] border pixel 1
+bindsym F11 [instance="emacs-todo"] scratchpad show
+
+# Window floats and such
+for_window [instance="Msgcompose"] floating enable;
+for_window [instance="zeal"] floating enable;
+for_window [class="systemsettings"] floating enable;
+for_window [class="Pinentry"] floating enable;
+
+### Colours
+# Arc Colours:
+# Dark      #2b333f
+# Highlight #3a404c
+# Blue      #5294e2
+# White     #d3dae3
+
+# class                 border  backgr. text    indicator
+client.focused          #5294e2 #5294e2 #ffffff #3a404c
+client.focused_inactive #0E5A80 #0E5A80 #d3dae3 #3a404c
+client.unfocused        #2b333f #2b333f #d3dae3 #3a404c
+client.urgent           #ffffff #ffffff #5294e2 #3a404c
+
+### Plasma Integration
+#
+# Try to kill the wallpaper set by Plasma (it takes up the entire workspace and hides everythiing)
+exec --no-startup-id wmctrl -c Plasma
+for_window [title="Desktop — Plasma"] kill; floating enable; border none
+
+## Avoid tiling popups, dropdown windows from plasma
+# for the first time, manually resize them, i3 will remember the setting for floating windows
+for_window [class="plasmashell"] floating enable;
+for_window [class="Plasma"] floating enable; border none
+for_window [title="plasma-desktop"] floating enable; border none
+for_window [title="win7"] floating enable; border none
+for_window [class="krunner"] floating enable; border none
+for_window [class="Kmix"] floating enable; border none
+for_window [class="Klipper"] floating enable; border none
+for_window [class="Plasmoidviewer"] floating enable; border none
+
+no_focus [class="plasmashell"]
+no_focus [window_role="pop-up"]
+no_focus [window_type="notification"]
+
+### Key bindings
+    # start a terminal
+    bindsym $mod+Shift+Return exec $term
+
+    # kill focused windo
+    bindsym $mod+Shift+c kill
+    bindsym Mod1+F4 kill
+
+    # start your launcher
+    bindsym $mod+d exec $menu
+    bindsym $mod+p exec --no-startup-id j4-dmenu-desktop --display-binary --use-xdg-de
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod
+
+    # reload the configuration file
+    bindsym $mod+Shift+b reload
+
+    # restart sway inplace (preserves your layout/session, can be used to upgrade sway)
+    bindsym $mod+Shift+r restart
+
+    # exit sway (logs you out of your wayland session)
+    bindsym $mod+Shift+q exit
+
+    #
+    # Application Shortcuts:
+    #
+    bindsym $mod+Shift+e exec --no-startup-id emacs
+    bindsym $mod+Shift+o exec --no-startup-id feh --randomize --bg-fill /home/stuart/SyncBox/Wallpapers/Desktop/*
+
+    #
+    # Moving around:
+    #
+    # Moving output
+    bindsym $mod+t move workspace to output right
+    bindsym $mod+r move workspace to output left
+    bindsym $mod+y move workspace to output up
+    bindsym $mod+u move workspace to output down
+    # Move your focus around with $mod+[h|j|k|l], like vim
+    bindsym $mod+h focus left
+    bindsym $mod+j focus down
+    bindsym $mod+k focus up
+    bindsym $mod+l focus right
+    bindsym $mod+Tab focus right
+    bindsym Mod1+Tab focus right
+    bindsym $mod+Shift+Tab focus left
+    # or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # _move_ the focused window with the same, but add Shift
+    bindsym $mod+Shift+h move left
+    bindsym $mod+Shift+j move down
+    bindsym $mod+Shift+k move up
+    bindsym $mod+Shift+l move right
+    # ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+
+    #
+    # Workspaces:
+    #
+    # switch to workspace
+    bindsym $mod+1 workspace 1
+    bindsym $mod+2 workspace 2
+    bindsym $mod+3 workspace 3
+    bindsym $mod+4 workspace 4
+    bindsym $mod+5 workspace 5
+    bindsym $mod+6 workspace 6
+    bindsym $mod+7 workspace 7
+    bindsym $mod+8 workspace 8
+    bindsym $mod+9 workspace 9
+    bindsym $mod+0 workspace 10
+    # move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace 1
+    bindsym $mod+Shift+2 move container to workspace 2
+    bindsym $mod+Shift+3 move container to workspace 3
+    bindsym $mod+Shift+4 move container to workspace 4
+    bindsym $mod+Shift+5 move container to workspace 5
+    bindsym $mod+Shift+6 move container to workspace 6
+    bindsym $mod+Shift+7 move container to workspace 7
+    bindsym $mod+Shift+8 move container to workspace 8
+    bindsym $mod+Shift+9 move container to workspace 9
+    bindsym $mod+Shift+0 move container to workspace 10
+
+    #
+    # Layout stuff:
+    #
+    # You can "split" the current object of your focus with
+    # $mod+h or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+c splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    bindsym $mod+m sticky toggle
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # move focus to the parent container
+    bindsym $mod+a focus parent
+
+    #
+    # Scratchpad:
+    #
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
