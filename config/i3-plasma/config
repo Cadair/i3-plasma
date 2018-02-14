@@ -4,7 +4,7 @@
 # Configure X
 exec --no-startup-id xcompmgr
 #Set wallpaper
-exec --no-startup-id feh --randomize --bg-fill /home/stuart/SyncBox/Wallpapers/Desktop/*
+#exec --no-startup-id feh --randomize --bg-fill /home/stuart/SyncBox/Wallpapers/Desktop/*
 
 ### Font
 font pango: Noto Sans
@@ -30,9 +30,9 @@ set $term "gnome-terminal -- xonsh"
 set $menu dmenu_run
 
 # Layout Templates:
-exec --no-startup-id "i3-msg 'workspace 1; append_layout /home/stuart/.config/i3/workspace-1.json'"
+#exec --no-startup-id "i3-msg 'workspace 1; append_layout /home/stuart/.config/i3/workspace-1.json'"
 # Chat workspace
-exec --no-startup-id "i3-msg 'workspace 10; append_layout /home/stuart/.config/i3-plasma/workspace-10.json'"
+#exec --no-startup-id "i3-msg 'workspace 10; append_layout /home/stuart/.config/i3-plasma/workspace-10.json'"
 assign [class="Pidgin"] 10
 assign [class="Riot"] 10
 assign [class="HipChat"] 10
