@@ -1,1 +1,1 @@
-export KDEWM=/home/stuart/.config/i3-plasma/i3-plasma
+export KDEWM=$HOME/.config/i3-plasma/i3-plasma
